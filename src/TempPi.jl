@@ -1,5 +1,10 @@
 module TempPi
 
-# package code goes here
+export
+    readtemp
+
+using PiGPIO
+
+include("tempsensor.jl")
 
 end # module
