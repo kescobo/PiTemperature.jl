@@ -1,4 +1,4 @@
-module TempPi
+module PiTemperature
 
 export
     readtemp
