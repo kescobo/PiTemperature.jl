@@ -1,9 +1,12 @@
 module PiTemperature
 
 export
-    readtemp
+    sensorids,
+    readtemp,
+    temprange,
+    temprange!
 
-using PiGPIO
+import PiGPIO
 
 include("tempsensor.jl")
 
