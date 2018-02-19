@@ -4,7 +4,7 @@ mutable struct TempRange
 end
 
 function sensorids(sensordir::String="/sys/bus/w1/devices")
-    sids = filter(x->startswith(x, "28-", readdir(sensorid)))
+    sids = filter(x->startswith(x, "28-"), readdir(sensordir))
     return sids
 end
 
@@ -15,7 +15,7 @@ Get the temperature from a particular sensor based on unique id
 function readtemp(sensorid::String, sensordir::String="/sys/bus/w1/devices")
     sid = joinpath(sensordir, sensorid)
     p = joinpath(sid, "w1_slave")
-    isfile(p) || error("Couldn't find sensor $sensorid at '/sys/bus/w1/devices'")
+    isfile(p) || error("Couldn't find sensor $sensorid at '$sensordir'")
 
     readings = readlines(p)
     if endswith(readings[1], "YES")
