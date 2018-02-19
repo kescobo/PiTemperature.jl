@@ -1,8 +1,6 @@
-mutable struct TempRange
-    upper::Float64
-    lower::Float64
-end
-
+"""
+Get array of sensor ids from folder names (only tested for DS18B20 temperature sensor)
+"""
 function sensorids(sensordir::String="/sys/bus/w1/devices")
     sids = filter(x->startswith(x, "28-"), readdir(sensordir))
     return sids
@@ -28,13 +26,4 @@ function readtemp(sensorid::String, sensordir::String="/sys/bus/w1/devices")
     else
         warn("Sensor $sensorid found, but couldn't get temp")
     end
-end
-
-function temprange!(tr::TempRange, upper::Real, lower::Real)
-    tr.upper = Float64(upper)
-    tr.lower = Float64(lower)
-end
-
-function temprange(upper::Real, lower::Real)
-    return TempRange(upper, lower)
 end

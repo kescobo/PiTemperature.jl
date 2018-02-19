@@ -1,3 +1,4 @@
+__precompile__(true)
 module PiTemperature
 
 export
@@ -7,7 +8,10 @@ export
     temprange!
 
 import PiGPIO
+import Unitful
+import Base.convert
 
+include("tempcontrol.jl")
 include("tempsensor.jl")
 
 end # module
