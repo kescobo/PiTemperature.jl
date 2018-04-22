@@ -8,7 +8,7 @@ export
     temprange!
 
 import PiGPIO
-import Unitful
+import Unitful.DefaultSymbols
 import Base.convert
 
 include("tempcontrol.jl")

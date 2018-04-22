@@ -1,16 +1,26 @@
-mutable struct TempRange
-    lower::typeof(1.0u"°C")
-    upper::typeof(1.0u"°C")
+const °C = u"°C"
+const °F = u"°F"
+const ctype = typeof(°C)
+const ftype = typeof(°F)
 
-    TempRange(lower, upper) = upper >= lower ? new(lower, upper) : error("upper range must be greater than lower range")
+
+mutable struct TemperatureRange{T<:Unitful.Temperature}
+    setpoint::T
+    tolerance::Float64
 end
 
-const °C = 1.0u"°C"
-const temptype = typeof(°C)
+function uconvert(u::Unitful.Temperature, tr::TemperatureRange)
+    return
 
-convert(::Type{temptype}, n::Real) = n * °C
+function temprange(setpoint::Number, tolerance::Number)
+    return TempRange(ctype, setpoint, tolerance)
+end
 
-function temprange!(tr::TempRange, upper::temptype, lower::temptype)
-    tr.upper = upper
-    tr.lower = lower
+function temprange!(tr::TempRange, setpoint::temptype, tolerance::temptype)
+    tr.setpoint = setpoint
+    tr.tolerance = tolerance
+end
+
+function temprange!(tr::TempRange, setpoint::Number, tolerance::Number)
+    temprange!(tr, setpoint * °C, tolerance * °C)
 end
