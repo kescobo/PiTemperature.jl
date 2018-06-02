@@ -24,6 +24,6 @@ function readtemp(sensorid::String, sensordir::String="/sys/bus/w1/devices")
 
         return ctemp, ftemp
     else
-        warn("Sensor $sensorid found, but couldn't get temp")
+        @warn "Sensor $sensorid found, but couldn't get temp"
     end
 end
